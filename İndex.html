@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fakir Hayatta Kalma Projesi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #e94560, #ff6b6b, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(233, 69, 96, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #a0a0a0;
+            font-weight: 400;
+        }
+
+        .survival-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.2s both;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .survival-card h2 {
+            font-size: 1.5rem;
+            color: #feca57;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .day-counter {
+            font-size: 6rem;
+            font-weight: 900;
+            color: #e94560;
+            line-height: 1;
+            margin: 20px 0;
+            text-shadow: 0 0 40px rgba(233, 69, 96, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .day-counter.bump {
+            animation: bump 0.5s ease;
+        }
+
+        @keyframes bump {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .day-label {
+            font-size: 1.3rem;
+            color: #a0a0a0;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e94560, #feca57);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .menu-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .menu-card h3 {
+            font-size: 1.3rem;
+            color: #feca57;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .menu-items {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .menu-item {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            min-width: 150px;
+        }
+
+        .menu-item .emoji {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .menu-item .name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .menu-item .price {
+            font-size: 0.9rem;
+            color: #e94560;
+            font-weight: 800;
+        }
+
+        .total-price {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #feca57;
+        }
+
+        .donate-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .donate-section h3 {
+            font-size: 1.5rem;
+            color: #feca57;
+            margin-bottom: 15px;
+        }
+
+        .donate-section .desc {
+            color: #a0a0a0;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .donate-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #e94560, #c73659);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(233, 69, 96, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .payment-info {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .payment-info.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .payment-info p {
+            margin-bottom: 10px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            word-break: break-all;
+        }
+
+        .payment-info .copy-btn {
+            background: #e94560;
+            color: #fff;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+
+        .quote-box {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(254, 202, 87, 0.1);
+            border-left: 4px solid #feca57;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            color: #feca57;
+            font-size: 1.1rem;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            animation: fadeIn 1s ease 1s both;
+        }
+
+        .footer a {
+            color: #e94560;
+            text-decoration: none;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            from { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            to { transform: translateY(-10vh) translateX(100px); opacity: 0; }
+        }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 2rem; }
+            .day-counter { font-size: 4rem; }
+            .menu-items { gap: 15px; }
+            .donate-buttons { flex-direction: column; align-items: center; }
+            .btn { width: 100%; max-width: 280px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🍗 Fakir Hayatta Kalma</h1>
+            <p>Her 200 TL'lik bağış = 1 gün daha hayatta kalma şansı</p>
+        </div>
+
+        <div class="survival-card">
+            <h2>⏱️ Hayatta Kalma Sayacı</h2>
+            <div class="day-label">Toplam Hayatta Kalınan Gün</div>
+            <div class="day-counter" id="dayCounter">0</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div style="color: #888; font-size: 0.9rem;">
+                Bir sonraki hedef: <span id="nextTarget">200</span> TL
+            </div>
+        </div>
+
+        <div class="menu-card">
+            <h3>🍽️ Bugünün Menüsü</h3>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <span class="emoji">🌯</span>
+                    <div class="name">Tavuk Dürüm</div>
+                    <div class="price">120 TL</div>
+                </div>
+                <div class="menu-item">
+                    <span class="emoji">🥛</span>
+                    <div class="name">Ayran</div>
+                    <div class="price">40 TL</div>
+                </div>
+                <div class="menu-item">
+                    <span class="emoji">🧄</span>
+                    <div class="name">Acı Sos</div>
+                    <div class="price">20 TL</div>
+                </div>
+                <div class="menu-item">
+                    <span class="emoji">🧻</span>
+                    <div class="name">Peçete</div>
+                    <div class="price">20 TL</div>
+                </div>
+            </div>
+            <div class="total-price">
+                Toplam: 200 TL / gün
+            </div>
+        </div>
+
+        <div class="donate-section">
+            <h3>💸 Beni Hayatta Tut</h3>
+            <p class="desc">
+                Şu an açım. Cidden. Gördüğün gibi menü belli, fiyat belli.<br>
+                Attığın her 200 TL ile bir gün daha dürüm yiyip hayatta kalıyorum.<br>
+                <strong>Bu bir bağış değil, bu bir yatırım. (Benim mideme)</strong>
+            </p>
+
+            <div class="donate-buttons">
+                <button class="btn btn-secondary" onclick="showPayment('iban')">🏦 IBAN ile Gönder</button>
+                <button class="btn btn-primary" onclick="simulateDonation()">🎲 Demo: 200 TL Bağış Yap</button>
+            </div>
+
+            <div class="payment-info" id="ibanInfo">
+                <p><strong>IBAN:</strong> <span id="ibanNo">TR57 0015 7000 0000 0150 2307 52</span> <button class="copy-btn" onclick="copyText('ibanNo')">Kopyala</button></p>
+                <p style="color: #888; font-size: 0.85rem; margin-top: 10px;">Banka: Yapı Kredi | Alıcı: Fakir Hayatta Kalma Vakfı (Şahıs)</p>
+                <p style="color: #feca57; font-size: 0.85rem; margin-top: 5px;">Açıklamaya "Dürüm parası" yazmayı unutma!</p>
+            </div>
+
+            <div class="quote-box" id="quoteBox">
+                "Açlık bir sanattır, ben ise Picasso'suyum."
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Made with 🌯 and 😭 | X'te paylaşmayı unutma</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">
+                Yasal Uyarı: Bu site tamamen mizahi amaçlıdır. Toplanan paralar dürüm ve ayran için harcanır.<br>
+                Başka bir şeye harcarsam, midem isyan eder.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDelay = Math.random() * 20 + 's';
+            p.style.animationDuration = (15 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(p);
+        }
+
+        // State
+        let survivalDays = parseInt(localStorage.getItem('survivalDays')) || 0;
+        let currentProgress = parseInt(localStorage.getItem('currentProgress')) || 0;
+        const TARGET = 200;
+
+        // Quotes
+        const quotes = [
+            "Açlık bir sanattır, ben ise Picasso'suyum.",
+            "Dürüm yemeyeli 0 gün oldu, çünkü sen bağış yaptın. Teşekkürler!",
+            "Ayran içmeden ölmek istemiyorum, yardım et.",
+            "Keşke biri bana 200 TL ateşlese de alabilsem...",
+            "Bu siteyi açarken bile açım, CSS yazmak enerji istiyor.",
+            "Hayatta kalmak için tek ihtiyacım: tavuk, lavaş, yoğurt.",
+            "Zenginler 'buy me a coffee' diyor, biz 'buy me a dürüm' diyoruz.",
+            "Gelecekteki ben: 'O gün o dürümü yemeseydim...' demeyecek, çünkü sen yardım ettin.",
+            "200 TL = 1 gün hayat. Matematik bu kadar basit olmamalı.",
+            "Açlıktan halüsinasyon görüyorum, dürüm şeklinde bulutlar..."
+        ];
+
+        // Update UI
+        function updateUI() {
+            document.getElementById('dayCounter').textContent = survivalDays;
+            const progress = (currentProgress / TARGET) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('nextTarget').textContent = TARGET - currentProgress;
+        }
+
+        function showPayment(type) {
+            document.getElementById('ibanInfo').classList.remove('active');
+            
+            if (type === 'iban') {
+                document.getElementById('ibanInfo').classList.add('active');
+            }
+        }
+
+        function copyText(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Kopyalandı: ' + text);
+            });
+        }
+
+        function simulateDonation() {
+            currentProgress += 200;
+            
+            if (currentProgress >= TARGET) {
+                survivalDays += Math.floor(currentProgress / TARGET);
+                currentProgress = currentProgress % TARGET;
+                
+                const counter = document.getElementById('dayCounter');
+                counter.classList.add('bump');
+                setTimeout(() => counter.classList.remove('bump'), 500);
+                
+                // Random quote
+                const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+                document.getElementById('quoteBox').textContent = randomQuote;
+            }
+            
+            localStorage.setItem('survivalDays', survivalDays);
+            localStorage.setItem('currentProgress', currentProgress);
+            updateUI();
+        }
+
+        // Init
+        updateUI();
+    </script>
+</body>
+</html>
