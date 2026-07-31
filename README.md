@@ -1,1 +1,0 @@
-# Fakir-hayatta-kalma
